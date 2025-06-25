@@ -1,33 +1,3 @@
-let tarefas = [];
-
-function salvarTarefas() {
-  localStorage.setItem('tarefas', JSON.stringify(tarefas));
-}
-
-function carregarTarefas() {
-  const dadosSalvos = localStorage.getItem('tarefas');
-  if (dadosSalvos) {
-    tarefas = JSON.parse(dadosSalvos);
-    tarefas.forEach(tarefa => {
-      criarElementoTarefa(tarefa.texto, tarefa.concluida);
-    });
-  }
-}
-
-function adicionarTarefa() {
-  const input = document.getElementById('novaTarefa');
-  const texto = input.value.trim();
-  if (texto === '') return;
-
-  // Salva primeiro no array
-  tarefas.push({ texto, concluida: false });
-  salvarTarefas();
-
-  // Depois renderiza na tela
-  criarElementoTarefa(texto, false);
-  input.value = '';
-}
-
 function criarElementoTarefa(texto, concluida) {
   const li = document.createElement('li');
   if (concluida) li.classList.add('completed');
@@ -36,12 +6,12 @@ function criarElementoTarefa(texto, concluida) {
   span.className = 'tarefa-texto';
   span.innerText = texto;
 
-  // Emojis explicativos
+  
   const labelContainer = document.createElement('div');
   labelContainer.className = 'emoji-labels';
   labelContainer.innerHTML = '<span title="Concluído">✅</span> <span title="Não concluído">❌</span>';
 
-  // Checkboxes
+  
   const checkConcluido = document.createElement('input');
   checkConcluido.type = 'checkbox';
   checkConcluido.checked = concluida;
@@ -64,6 +34,17 @@ function criarElementoTarefa(texto, concluida) {
     atualizarStatusTarefa(texto, checkConcluido.checked);
   });
 
+  
+  const botaoRemover = document.createElement('button');
+  botaoRemover.innerText = 'Remover';
+  botaoRemover.className = 'remover-btn';
+  botaoRemover.addEventListener('click', () => {
+    li.remove();
+    tarefas = tarefas.filter(t => t.texto !== texto);
+    salvarTarefas();
+  });
+
+  
   const checkboxContainer = document.createElement('div');
   checkboxContainer.className = 'checkbox-container';
   checkboxContainer.appendChild(labelContainer);
@@ -72,15 +53,7 @@ function criarElementoTarefa(texto, concluida) {
 
   li.appendChild(span);
   li.appendChild(checkboxContainer);
+  li.appendChild(botaoRemover);
+
   document.getElementById('listaTarefas').appendChild(li);
 }
-
-function atualizarStatusTarefa(texto, status) {
-  const tarefa = tarefas.find(t => t.texto === texto);
-  if (tarefa) {
-    tarefa.concluida = status;
-    salvarTarefas();
-  }
-}
-
-window.addEventListener('load', carregarTarefas);
