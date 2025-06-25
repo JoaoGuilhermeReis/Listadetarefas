@@ -84,3 +84,34 @@ li.completed .tarefa-texto {
   margin-bottom: 5px;
   padding: 0 2px;
 }
+
+.remover-btn {
+  background-color: #d32f2f;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 15px;
+  }
+
+  .input-task input {
+    font-size: 0.9rem;
+  }
+
+  .input-task button {
+    font-size: 0.9rem;
+  }
+
+  .remover-btn {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+}
+
