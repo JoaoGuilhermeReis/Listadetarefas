@@ -1,11 +1,11 @@
 let tarefas = [];
 
 function salvarTarefas() {
-  localStorage.setItem('tarefas', JSON.stringify(tarefas));
+  localStorage.setItem('tarefas_petrox', JSON.stringify(tarefas));
 }
 
 function carregarTarefas() {
-  const dadosSalvos = localStorage.getItem('tarefas');
+  const dadosSalvos = localStorage.getItem('tarefas_petrox');
   if (dadosSalvos) {
     tarefas = JSON.parse(dadosSalvos);
     tarefas.forEach(tarefa => {
@@ -15,12 +15,13 @@ function carregarTarefas() {
 }
 
 function gerarId() {
-  return Date.now() + Math.random().toString(36).substr(2, 9);
+  return Date.now() + Math.random().toString(36).substring(2, 9);
 }
 
 function adicionarTarefa() {
   const input = document.getElementById('novaTarefa');
   const texto = input.value.trim();
+  
   if (texto === '') return;
 
   const id = gerarId();
@@ -29,73 +30,69 @@ function adicionarTarefa() {
 
   criarElementoTarefa(id, texto, false);
   input.value = '';
+  input.focus(); // Retorna o foco para digitar a próxima rapidamente
 }
 
+// Permite adicionar a tarefa apertando "Enter"
+document.getElementById('novaTarefa').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    adicionarTarefa();
+  }
+});
+
 function criarElementoTarefa(id, texto, concluida) {
+  const lista = document.getElementById('listaTarefas');
   const li = document.createElement('li');
-  if (concluida) li.classList.add('completed');
+  
+  if (concluida) {
+    li.classList.add('completed');
+  }
+
+  // Checkbox único e funcional
+  const checkStatus = document.createElement('input');
+  checkStatus.type = 'checkbox';
+  checkStatus.checked = concluida;
+  checkStatus.title = 'Marcar/Desmarcar como concluída';
+
+  checkStatus.addEventListener('change', () => {
+    const isChecked = checkStatus.checked;
+    li.classList.toggle('completed', isChecked);
+    atualizarStatusTarefa(id, isChecked);
+  });
 
   const span = document.createElement('span');
   span.className = 'tarefa-texto';
   span.innerText = texto;
 
-  
-  const labelContainer = document.createElement('div');
-  labelContainer.className = 'emoji-labels';
-  labelContainer.innerHTML = '<span title="Concluído">✅</span> <span title="Não concluído">❌</span>';
-
-  
-  const checkConcluido = document.createElement('input');
-  checkConcluido.type = 'checkbox';
-  checkConcluido.checked = concluida;
-  checkConcluido.title = 'Marcar como concluída';
-
-  const checkNao = document.createElement('input');
-  checkNao.type = 'checkbox';
-  checkNao.checked = !concluida;
-  checkNao.title = 'Marcar como não concluída';
-
-  checkConcluido.addEventListener('change', () => {
-    checkNao.checked = !checkConcluido.checked;
-    li.classList.toggle('completed', checkConcluido.checked);
-    atualizarStatusTarefa(id, checkConcluido.checked);
-  });
-
-  checkNao.addEventListener('change', () => {
-    checkConcluido.checked = !checkNao.checked;
-    li.classList.toggle('completed', checkConcluido.checked);
-    atualizarStatusTarefa(id, checkConcluido.checked);
-  });
-
-
   const botaoRemover = document.createElement('button');
-  botaoRemover.innerText = 'Remover';
+  botaoRemover.innerText = 'Excluir';
   botaoRemover.className = 'remover-btn';
+  
   botaoRemover.addEventListener('click', () => {
-    li.remove();
-    tarefas = tarefas.filter(t => t.id !== id);
-    salvarTarefas();
+    // Adiciona uma animação suave antes de remover
+    li.style.opacity = '0';
+    setTimeout(() => {
+      li.remove();
+      tarefas = tarefas.filter(t => t.id !== id);
+      salvarTarefas();
+    }, 200);
   });
 
-  const checkboxContainer = document.createElement('div');
-  checkboxContainer.className = 'checkbox-container';
-  checkboxContainer.appendChild(labelContainer);
-  checkboxContainer.appendChild(checkConcluido);
-  checkboxContainer.appendChild(checkNao);
-
+  // Montagem do elemento (Item da lista)
+  li.appendChild(checkStatus);
   li.appendChild(span);
-  li.appendChild(checkboxContainer);
   li.appendChild(botaoRemover);
 
-  document.getElementById('listaTarefas').appendChild(li);
+  lista.appendChild(li);
 }
 
 function atualizarStatusTarefa(id, status) {
-  const tarefa = tarefas.find(t => t.id === id);
-  if (tarefa) {
-    tarefa.concluida = status;
+  const tarefaIndex = tarefas.findIndex(t => t.id === id);
+  if (tarefaIndex !== -1) {
+    tarefas[tarefaIndex].concluida = status;
     salvarTarefas();
   }
 }
 
+// Inicia o app carregando as informações salvas
 window.addEventListener('load', carregarTarefas);
