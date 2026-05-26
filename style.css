@@ -1,49 +1,87 @@
+/* Definição da Paleta de Cores (Estilo Petrox) */
+:root {
+  --vermelho-principal: #D32F2F; /* Vermelho forte */
+  --vermelho-hover: #B71C1C;
+  --amarelo-destaque: #FFC107; /* Amarelo vibrante */
+  --branco-fundo: #F4F5F7;
+  --branco-card: #FFFFFF;
+  --texto-escuro: #333333;
+  --texto-claro: #777777;
+  --borda: #E0E0E0;
+}
+
 body {
-  background-color: #121212;
-  color: #fff;
-  font-family: Arial, sans-serif;
+  background-color: var(--branco-fundo);
+  color: var(--texto-escuro);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 40px 20px;
   margin: 0;
 }
 
 .container {
   width: 100%;
-  max-width: 450px;
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
+  max-width: 500px;
+  background: var(--branco-card);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid var(--vermelho-principal);
   box-sizing: border-box;
 }
 
-h1 {
+header {
   text-align: center;
-  font-size: 1.5rem;
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin: 0 0 5px 0;
+  color: var(--vermelho-principal);
+}
+
+.subtitle {
+  color: var(--texto-claro);
+  font-size: 0.9rem;
 }
 
 .input-task {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .input-task input {
   flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
+  padding: 12px 15px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
   font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-task input:focus {
+  outline: none;
+  border-color: var(--amarelo-destaque);
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
 }
 
 .input-task button {
-  padding: 10px;
+  padding: 12px 20px;
   border: none;
-  background-color: #00c853;
+  background-color: var(--vermelho-principal);
   color: white;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.input-task button:hover {
+  background-color: var(--vermelho-hover);
 }
 
 ul {
@@ -53,64 +91,73 @@ ul {
 }
 
 li {
-  background: #2c2c2c;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  background: var(--branco-card);
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--amarelo-destaque);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   word-wrap: break-word;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .tarefa-texto {
   flex: 1;
-  margin: 0 10px;
+  margin: 0 15px;
+  font-size: 1.05rem;
+  transition: color 0.3s;
+}
+
+li.completed {
+  border-left-color: #888;
+  background-color: #f9f9f9;
 }
 
 li.completed .tarefa-texto {
   text-decoration: line-through;
-  color: #888;
+  color: var(--texto-claro);
 }
 
-.checkbox-container {
-  display: flex;
-  gap: 10px;
-}
-.emoji-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-  padding: 0 2px;
+/* Estilização do Checkbox */
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--vermelho-principal);
 }
 
 .remover-btn {
-  background-color: #d32f2f;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid var(--borda);
+  color: var(--texto-claro);
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.remover-btn:hover {
+  background-color: #ffebee;
+  color: var(--vermelho-principal);
+  border-color: var(--vermelho-principal);
 }
 
 @media (max-width: 500px) {
   .container {
-    padding: 15px;
+    padding: 20px;
   }
-
-  .input-task input {
-    font-size: 0.9rem;
+  .input-task {
+    flex-direction: column;
   }
-
   .input-task button {
-    font-size: 0.9rem;
-  }
-
-  .remover-btn {
-    padding: 5px 8px;
-    font-size: 0.8rem;
+    width: 100%;
   }
 }
