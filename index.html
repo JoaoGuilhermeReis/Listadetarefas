@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minhas Tarefas</title>
+  <title>Tarefas - Operação Petrox</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>📝 Lista de Tarefas</h1>
+  <main class="container">
+    <header>
+      <h1>Gestão de Tarefas</h1>
+      <span class="subtitle">Controle de atividades</span>
+    </header>
+    
     <div class="input-task">
-      <input type="text" id="novaTarefa" placeholder="Digite uma nova tarefa...">
-      <button onclick="adicionarTarefa()">Adicionar</button>
+      <input type="text" id="novaTarefa" placeholder="Digite uma nova tarefa operacional...">
+      <button onclick="adicionarTarefa()" id="btnAdicionar">Adicionar</button>
     </div>
+    
     <ul id="listaTarefas"></ul>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
