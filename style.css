@@ -1,8 +1,7 @@
-/* Definição da Paleta de Cores (Estilo Petrox) */
 :root {
-  --vermelho-principal: #D32F2F; /* Vermelho forte */
+  --vermelho-principal: #D32F2F;
   --vermelho-hover: #B71C1C;
-  --amarelo-destaque: #FFC107; /* Amarelo vibrante */
+  --amarelo-destaque: #FFC107;
   --branco-fundo: #F4F5F7;
   --branco-card: #FFFFFF;
   --texto-escuro: #333333;
@@ -50,7 +49,7 @@ h1 {
 .input-task {
   display: flex;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .input-task input {
@@ -84,6 +83,88 @@ h1 {
   background-color: var(--vermelho-hover);
 }
 
+/* Nova Toolbar (Ações superiores) */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--borda);
+}
+
+.secundario-btn {
+  background: none;
+  border: 1px solid var(--vermelho-principal);
+  color: var(--vermelho-principal);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.secundario-btn:hover {
+  background: var(--vermelho-principal);
+  color: white;
+}
+
+.contador-tasks {
+  font-size: 0.9rem;
+  color: var(--texto-claro);
+  font-weight: 500;
+}
+
+/* Filtros Estilo Abas */
+.filtros-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.botoes-filtro {
+  display: flex;
+  gap: 5px;
+}
+
+.filtro-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--texto-escuro);
+  transition: all 0.2s;
+}
+
+.filtro-btn:hover {
+  background: #e0e0e0;
+}
+
+.filtro-btn.ativo {
+  background: var(--amarelo-destaque);
+  color: #000;
+  font-weight: bold;
+}
+
+.limpar-btn {
+  background: none;
+  border: none;
+  color: var(--texto-claro);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.limpar-btn:hover {
+  color: var(--vermelho-principal);
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -101,7 +182,7 @@ li {
   align-items: center;
   justify-content: space-between;
   word-wrap: break-word;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 li:hover {
@@ -112,7 +193,6 @@ li:hover {
   flex: 1;
   margin: 0 15px;
   font-size: 1.05rem;
-  transition: color 0.3s;
 }
 
 li.completed {
@@ -125,7 +205,6 @@ li.completed .tarefa-texto {
   color: var(--texto-claro);
 }
 
-/* Estilização do Checkbox */
 input[type="checkbox"] {
   width: 20px;
   height: 20px;
@@ -150,14 +229,20 @@ input[type="checkbox"] {
   border-color: var(--vermelho-principal);
 }
 
+.estado-vazio {
+  text-align: center;
+  color: var(--texto-claro);
+  padding: 30px 10px;
+  font-style: italic;
+  font-size: 0.95rem;
+  border: 1px dashed var(--borda);
+  border-radius: 6px;
+}
+
 @media (max-width: 500px) {
-  .container {
-    padding: 20px;
-  }
-  .input-task {
-    flex-direction: column;
-  }
-  .input-task button {
-    width: 100%;
-  }
+  .container { padding: 20px; }
+  .input-task { flex-direction: column; }
+  .input-task button { width: 100%; }
+  .filtros-container { flex-direction: column; align-items: flex-start; }
+  .limpar-btn { padding-left: 0; margin-top: 5px; }
 }
