@@ -5,20 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tarefas - Operação Petrox</title>
   <link rel="stylesheet" href="style.css">
+  <meta name="color-scheme" content="light">
 </head>
 <body>
   <main class="container">
     <header>
       <h1>Gestão de Tarefas</h1>
-      <span class="subtitle">Controle de atividades</span>
+      <span class="subtitle">Painel de Controle Operacional</span>
     </header>
     
     <div class="input-task">
       <input type="text" id="novaTarefa" placeholder="Digite uma nova tarefa operacional...">
-      <button onclick="adicionarTarefa()" id="btnAdicionar">Adicionar</button>
+      <button onclick="adicionarTarefa()">Adicionar</button>
+    </div>
+
+    <div class="toolbar">
+      <button onclick="alternarTodas()" id="btnAlternarTodas" class="secundario-btn">Marcar todas</button>
+      <span id="contador" class="contador-tasks">0 pendentes</span>
+    </div>
+
+    <div class="filtros-container">
+      <div class="botoes-filtro">
+        <button onclick="mudarFiltro('all')" id="filtro-all" class="filtro-btn ativo">Todas</button>
+        <button onclick="mudarFiltro('active')" id="filtro-active" class="filtro-btn">Pendentes</button>
+        <button onclick="mudarFiltro('completed')" id="filtro-completed" class="filtro-btn">Concluídas</button>
+      </div>
+      <button onclick="limparConcluidas()" id="btnLimpar" class="limpar-btn">Limpar Concluídas</button>
     </div>
     
     <ul id="listaTarefas"></ul>
+    
+    <div id="estadoVazio" class="estado-vazio">Nenhuma tarefa encontrada.</div>
   </main>
 
   <script src="script.js"></script>
